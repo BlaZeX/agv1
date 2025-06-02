@@ -1,12 +1,123 @@
+<!-- index.html -->
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>BRSR Form</title>
-  </head>
-  <body>
-    <div id="root"></div>
-    <script type="module" src="/src/main.tsx"></script>
-  </body>
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Axial Greens - BRSR Form</title>
+  <style>
+    body {
+      font-family: sans-serif;
+      background: #ecfdf5;
+      color: #1b4332;
+      padding: 2rem;
+    }
+    .form-section {
+      background: #ffffff;
+      border-radius: 8px;
+      padding: 1.5rem;
+      margin-bottom: 2rem;
+      box-shadow: 0 0 4px rgba(0,0,0,0.1);
+    }
+    .form-group {
+      margin-bottom: 1rem;
+    }
+    label {
+      font-weight: bold;
+      display: block;
+      margin-bottom: 0.25rem;
+    }
+    input, textarea {
+      width: 100%;
+      padding: 0.5rem;
+      border: 1px solid #94a3b8;
+      border-radius: 4px;
+    }
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      margin-bottom: 1rem;
+    }
+    th, td {
+      border: 1px solid #94a3b8;
+      padding: 0.5rem;
+      text-align: left;
+    }
+    th {
+      background: #d1fae5;
+    }
+  </style>
+</head>
+<body>
+
+  <h1>Axial Greens - BRSR Survey Form (Section A)</h1>
+
+  <form id="brsr-form">
+
+    <div class="form-section">
+      <h2>General Disclosures</h2>
+
+      <!-- Q1 - Q13 -->
+      <div class="form-group"><label>1. Corporate Identity Number (CIN)</label><input name="q1" /></div>
+      <div class="form-group"><label>2. Name of the Listed Entity</label><input name="q2" /></div>
+      <div class="form-group"><label>3. Year of Incorporation</label><input name="q3" type="number"/></div>
+      <div class="form-group"><label>4. Registered Office Address</label><input name="q4" /></div>
+      <div class="form-group"><label>5. Corporate Address</label><input name="q5" /></div>
+      <div class="form-group"><label>6. E-mail</label><input name="q6" type="email"/></div>
+      <div class="form-group"><label>7. Telephone</label><input name="q7" /></div>
+      <div class="form-group"><label>8. Website</label><input name="q8" type="url"/></div>
+      <div class="form-group"><label>9. Financial year for which reporting is being done</label><input name="q9" /></div>
+      <div class="form-group"><label>10. Name of the Stock Exchange(s)</label><input name="q10" /></div>
+      <div class="form-group"><label>11. Paid-up Capital</label><input name="q11" /></div>
+      <div class="form-group"><label>12. Contact details for BRSR queries</label><textarea name="q12"></textarea></div>
+      <div class="form-group"><label>13. Reporting boundary - standalone/consolidated?</label><input name="q13" /></div>
+
+      <!-- Q14 Table -->
+      <div class="form-group">
+        <label>14. Business activities (90% of turnover)</label>
+        <table>
+          <thead>
+            <tr>
+              <th>S. No.</th>
+              <th>Main Activity</th>
+              <th>Business Activity</th>
+              <th>% of Turnover</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr><td>1</td><td><input name="q14_1a"/></td><td><input name="q14_1b"/></td><td><input name="q14_1c"/></td></tr>
+            <tr><td>2</td><td><input name="q14_2a"/></td><td><input name="q14_2b"/></td><td><input name="q14_2c"/></td></tr>
+            <tr><td>3</td><td><input name="q14_3a"/></td><td><input name="q14_3b"/></td><td><input name="q14_3c"/></td></tr>
+          </tbody>
+        </table>
+      </div>
+
+      <!-- Q15 Table -->
+      <div class="form-group">
+        <label>15. Products/Services sold by the entity</label>
+        <table>
+          <thead>
+            <tr>
+              <th>S. No.</th>
+              <th>Product/Service</th>
+              <th>NIC Code</th>
+              <th>% of Turnover</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr><td>1</td><td><input name="q15_1a"/></td><td><input name="q15_1b"/></td><td><input name="q15_1c"/></td></tr>
+            <tr><td>2</td><td><input name="q15_2a"/></td><td><input name="q15_2b"/></td><td><input name="q15_2c"/></td></tr>
+            <tr><td>3</td><td><input name="q15_3a"/></td><td><input name="q15_3b"/></td><td><input name="q15_3c"/></td></tr>
+          </tbody>
+        </table>
+      </div>
+
+      <!-- Continue with Q16–Q20 similarly -->
+
+    </div>
+
+    <button type="submit">Submit</button>
+  </form>
+
+</body>
 </html>
