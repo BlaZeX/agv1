@@ -1,4 +1,4 @@
-// src/App.tsx
+
 import React from "react";
 import { Card, CardContent } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
@@ -29,31 +29,25 @@ const sectionA = {
       id: "q14",
       title: "14. Details of business activities (accounting for 90% of the turnover)",
       columns: ["S. No.", "Description of Main Activity", "Description of Business Activity", "% of Turnover of the entity"],
-      rows: Array.from({ length: 3 }, (_, i) => ({ label: `${i + 1}` }))
+      rows: 3
     },
     {
       id: "q15",
       title: "15. Products/Services sold by the entity (accounting for 90% of the entity’s Turnover)",
       columns: ["S. No.", "Product/Service", "NIC Code", "% of total Turnover contributed"],
-      rows: Array.from({ length: 3 }, (_, i) => ({ label: `${i + 1}` }))
+      rows: 3
     },
     {
       id: "q16",
       title: "16. Number of locations where plants and/or operations/offices of the entity are situated:",
       columns: ["Location", "Number of plants", "Number of offices", "Total"],
-      rows: [
-        { label: "National" },
-        { label: "International" }
-      ]
+      rows: ["National", "International"]
     },
     {
       id: "q17a",
       title: "17a. Number of locations served:",
       columns: ["Locations", "Number"],
-      rows: [
-        { label: "National (No. of States)" },
-        { label: "International (No. of Countries)" }
-      ]
+      rows: ["National (No. of States)", "International (No. of Countries)"]
     },
     {
       id: "q17b",
@@ -62,67 +56,39 @@ const sectionA = {
     },
     {
       id: "q17c",
-      title: "17c. A brief on types of customers",
-      type: "textarea"
+      title: "17c. Markets served by the entity",
+      columns: ["Market", "Yes/No"],
+      rows: ["India", "Outside India"]
     },
     {
-      id: "q18a",
-      title: "18a. Employees and workers (including differently abled):",
-      columns: ["Particulars", "Total (A)", "Male No. (B)", "% (B / A)", "Female No. (C)", "% (C / A)"],
+      id: "q18",
+      title: "18. Details as at the end of the Financial Year:",
+      columns: ["Particulars", "Total (A)", "Male", "Female", "Other"],
       rows: [
-        { label: "EMPLOYEES", isHeader: true },
-        { label: "1. Permanent (D)" },
-        { label: "2. Other than Permanent (E)" },
-        { label: "3. Total employees (D + E)" },
-        { label: "WORKERS", isHeader: true },
-        { label: "4. Permanent (F)" },
-        { label: "5. Other than Permanent (G)" },
-        { label: "6. Total workers (F + G)" }
+        "Employees and workers (including differently abled)",
+        "Permanent (Diversity indicators to be reported only for Permanent employees and workers)",
+        "Other than Permanent",
+        "Differently abled Employees",
+        "Permanent",
+        "Other than Permanent"
       ]
     },
     {
-      id: "q18b",
-      title: "18b. Differently abled Employees and workers:",
-      columns: ["Particulars", "Total (A)", "Male No. (B)", "% (B / A)", "Female No. (C)", "% (C / A)"],
-      rows: [
-        { label: "DIFFERENTLY ABLED EMPLOYEES", isHeader: true },
-        { label: "1. Permanent (D)" },
-        { label: "2. Other than Permanent (E)" },
-        { label: "3. Total differently abled employees (D + E)" },
-        { label: "DIFFERENTLY ABLED WORKERS", isHeader: true },
-        { label: "4. Permanent (F)" },
-        { label: "5. Other than permanent (G)" },
-        { label: "6. Total differently abled workers (F + G)" }
-      ]
+      id: "q19",
+      title: "19. Details of the managerial person(s) responsible for implementation of the Business Responsibility policies",
+      columns: ["DIN", "Name", "Designation"],
+      rows: 1
     },
     {
-  id: "q19",
-  title: "19. Participation/Inclusion/Representation of women",
-  columns: ["", "Total (A)", "No. of Females (B)", "% (B / A)"],
-  rows: [
-    { label: "Board of Directors" },
-    { label: "Key Management Personnel" }
-  ]
-},
-{
-  id: "q20",
-  title: "20. Turnover rate for permanent employees and workers (Disclose trends for the past 3 years)",
-  columns: [
-    "Category",
-    "FY _____ (Current FY) - Male", "Female", "Total",
-    "FY _____ (Previous FY) - Male", "Female", "Total",
-    "FY _____ (Prior FY) - Male", "Female", "Total"
-  ],
-  rows: [
-    { label: "Permanent Employees" },
-    { label: "Permanent Workers" }
-  ]
-}
-
+      id: "q20",
+      title: "20. Details of review of NGRBCs by the Company (Merged Cell Format FY Current and Previous)",
+      columns: ["S. No.", "NGRBC Principle", "Whether principle review was undertaken", "If yes, specify frequency (Annually/Half yearly/Quarterly/Any other)", "Whether review was undertaken by Director/Committee of the Board/Any other Committee", "Specify name of the committee"],
+      rows: Array.from({ length: 9 }, (_, i) => `P${i + 1}`)
+    }
   ]
 };
 
-const FormRenderer = ({ section }: { section: typeof sectionA }) => (
+const FormRenderer = ({ section }) => (
   <Card className="m-4 bg-green-50">
     <CardContent className="space-y-4 p-4">
       {section.questions.map((q) => (
@@ -153,19 +119,13 @@ const FormRenderer = ({ section }: { section: typeof sectionA }) => (
                 </TableRow>
               </TableHeader>
               <TableBody>
-                {table.rows.map((row, rowIndex) =>
-                  row.isHeader ? (
-                    <TableRow key={rowIndex}>
-                      <TableCell colSpan={table.columns.length}>
-                        <strong className="text-sm text-gray-700">{row.label}</strong>
-                      </TableCell>
-                    </TableRow>
-                  ) : (
+                {(Array.isArray(table.rows) ? table.rows : Array.from({ length: table.rows })).map(
+                  (row, rowIndex) => (
                     <TableRow key={rowIndex}>
                       {table.columns.map((_, colIndex) => (
                         <TableCell key={colIndex}>
-                          {colIndex === 0 ? (
-                            <span>{row.label}</span>
+                          {typeof row === "string" && colIndex === 0 ? (
+                            row
                           ) : (
                             <Input
                               name={`table-${table.id}-${rowIndex}-${colIndex}`}
